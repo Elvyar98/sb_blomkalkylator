@@ -42,7 +42,7 @@
     }
 
     #total {
-      font-size: 1.5rem;
+      font-size: 9rem;
       font-weight: 600;
       margin-top: 1rem;
       color: #bfa980;
@@ -110,7 +110,7 @@
 
   <form id="calculatorForm">
     <div class="section">
-      <img src="bilder/brudbukett.jpg" alt="Brudbukett">
+      <img src="bilder/brudbukett.JPG" alt="Brudbukett">
       <div class="flower-info">
       <label for="brudbukett">Brudbukett</label>
       <select id="brudbukett">
@@ -123,7 +123,7 @@
     </div>
 
     <div class="section">
-      <img src="bilder/tarnbukett.jpg" alt="Tärnbukett">
+      <img src="bilder/tarnbukett.JPG" alt="Tärnbukett">
       <div class="flower-info">
       <label for="tarnbukett">Tärnbukett</label>
       <select id="tarnbukett">
@@ -136,7 +136,7 @@
     </div>
 
     <div class="section">
-      <img src="bilder/boutonniere.jpg" alt="Boutonniere">
+      <img src="bilder/boutonniere.JPG" alt="Boutonniere">
       <div class="flower-info">
       <label for="boutonniere">Boutonnieres (200 kr/st)</label>
       <input type="number" id="boutonniere" value="0" min="0" step="1"/>
@@ -144,7 +144,7 @@
     </div>
 
     <div class="section">
-      <img src="bilder/bordsarrangemang_liten.jpg" alt="Liten bordsarrangemang">
+      <img src="bilder/bordsarrangemang_liten.JPG" alt="Liten bordsarrangemang">
       <div class="flower-info">
       <label for="bordsstorlek">Bordsarrangemang</label>
       <select id="bordsstorlek">
@@ -192,9 +192,8 @@
     </div>
 
     <button type="button" onclick="beraknaTotal()">Räkna ut totalpris</button>
+    <div class="total" id="totalpris">Totalt: 0 kr</div>
   </form>
-
-  <div class="total" id="totalpris">Totalt: 0 kr</div>
 
   <script>
     function beraknaTotal() {
