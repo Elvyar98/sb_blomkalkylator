@@ -178,15 +178,20 @@
     </div>
 
     <div class="section">
+      <img src="bilder/blomsterbage.jpg" alt="Bud Vases">
+      <div class="flower-info">
       <label for="budvases">Bud Vases</label>
       <select id="budvases">
         <option value="0">Ingen</option>
         <option value="1500">30 st (1500 kr)</option>
         <option value="3000">60 st (3000 kr)</option>
       </select>
+      </div>
     </div>
 
     <div class="section">
+      <img src="bilder/vigelsgangarrangemang.jpg" alt="Vigselgångsarrangemang">
+      <div class="flower-info">
       <label for="vigselstorlek">Vigselgångsarrangemang</label>
       <select id="vigselstorlek">
         <option value="0">Ingen</option>
@@ -195,6 +200,7 @@
       </select>
       <label for="vigselantal">Antal</label>
       <input type="number" id="vigselantal" value="0" min="0"/>
+      </div>
     </div>
     <div class="total" id="totalpris">Totalt: 0 kr</div>
   </form>
@@ -202,7 +208,7 @@
   <section>
     <h2>Sammanfattning</h2>
     <p>Du kan markera och kopiera sammanfattningen här nere</p>
-    <textarea id="sammanfattning" 
+    <textarea readonly id="sammanfattning" 
     style="width: 400px; height: 150px; resize: none; 
     background: #fafafa; 
     padding: 1rem 1.2rem; border-radius: 0px; 
