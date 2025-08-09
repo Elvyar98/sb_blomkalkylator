@@ -215,69 +215,62 @@
   <button onclick="kopieraText()">Kopiera texten</button>
 
   <script>
-    function calculate() {
-      const brudbukettVal = document.getElementById("brudbukett");
-      const tarnbukettVal = document.getElementById("tarnbukett");
-      const tarnbukettAntal = parseInt(document.getElementById("tarnbukett-antal").value) || 0;
-      const boutonniereAntal = parseInt(document.getElementById("boutonniere-antal").value) || 0;
-      const bordsstorlekVal = document.getElementById("bordsarrangemang");
-      const bordsantal = parseInt(document.getElementById("bordsarrangemang-antal").value) || 0;
-      const blomsterbageVal = document.getElementById("blomsterbage");
-      const budvasesVal = document.getElementById("budvases");
-      const vigselstorlekVal = document.getElementById("vigselgang");
-      const vigselantal = parseInt(document.getElementById("vigselgang-antal").value) || 0;
+      function calculate() {
+        const brudbukettVal = document.getElementById("brudbukett");
+        const tarnbukettVal = document.getElementById("tarnbukett");
+        const tarnbukettAntal = parseInt(document.getElementById("tarnbukettAntal").value) || 0;
+        const boutonniereAntal = parseInt(document.getElementById("boutonniere").value) || 0;
+        const bordsstorlekVal = document.getElementById("bordsstorlek");
+        const bordsantal = parseInt(document.getElementById("bordsantal").value) || 0;
+        const blomsterbageVal = document.getElementById("blomsterbage");
+        const budvasesVal = document.getElementById("budvases");
+        const vigselstorlekVal = document.getElementById("vigselstorlek");
+        const vigselantal = parseInt(document.getElementById("vigselantal").value) || 0;
 
-      const brudbukett = parseInt(brudbukettVal.value) || 0;
-      const tarnbukett = (parseInt(tarnbukettVal.value) || 0) * tarnbukettAntal;
-      const boutonniere = 200 * boutonniereAntal;
-      const bordsarrangemang = (parseInt(bordsstorlekVal.value) || 0) * bordsantal;
-      const blomsterbage = parseInt(blomsterbageVal.value) || 0;
-      const budvases = parseInt(budvasesVal.value) || 0;
-      const vigselgang = (parseInt(vigselstorlekVal.value) || 0) * vigselantal;
+        const brudbukett = parseInt(brudbukettVal.value) || 0;
+        const tarnbukett = (parseInt(tarnbukettVal.value) || 0) * tarnbukettAntal;
+        const boutonniere = 200 * boutonniereAntal;
+        const bordsarrangemang = (parseInt(bordsstorlekVal.value) || 0) * bordsantal;
+        const blomsterbage = parseInt(blomsterbageVal.value) || 0;
+        const budvases = parseInt(budvasesVal.value) || 0;
+        const vigselgang = (parseInt(vigselstorlekVal.value) || 0) * vigselantal;
+        
+        const total = brudbukett + tarnbukett + boutonniere + bordsarrangemang + blomsterbage + budvases + vigselgang;
 
-      const total = brudbukett + tarnbukett + boutonniere + bordsarrangemang + blomsterbage + budvases + vigselgang;
+        document.getElementById("totalpris").textContent = `Totalt: ${total} kr`;
 
-      document.getElementById("total").textContent = total;
+        let text = "";
 
-      let text = "";
+        if (brudbukett > 0)
+        text += `- Brudbukett: ${brudbukettVal.options[brudbukettVal.selectedIndex].text} (${brudbukett} kr)\n`;
 
-      if (brudbukett > 0)
-       text += `- Brudbukett: ${brudbukettVal.options[brudbukettVal.selectedIndex].text} (${brudbukett} kr)\n`;
-
-      if (tarnbukett > 0) {
+        if (tarnbukett > 0) {
         const tarnbukettText = tarnbukettVal.options[tarnbukettVal.selectedIndex].text;
-        text += `- Tärnbuketter: ${tarnbukettAntal} st ${tarnbukettText} (${tarnbukett} kr)\n`;}
+        text += `- Tärnbuketter: ${tarnbukettAntal} st ${tarnbukettText} (${tarnbukett} kr)\n`
+      }
 
-      if (boutonniereAntal > 0)
+        if (boutonniereAntal > 0)
         text += `- Boutonnieres: ${boutonniereAntal} st (${boutonniere} kr)\n`;
 
-      if (bordsstorlekVal.value > 0 && bordsantal > 0)
+        if (bordsstorlekVal.value > 0 && bordsantal > 0)
         text += `- Bordsarrangemang: ${bordsantal} st ${bordsstorlekVal.options[bordsstorlekVal.selectedIndex].text} (${bordsarrangemang} kr)\n`;
 
-      if (blomsterbage > 0)
-       text += `- Blomsterbåge: ${blomsterbageVal.options[blomsterbageVal.selectedIndex].text} (${blomsterbage} kr)\n`;
+        if (blomsterbage > 0)
+        text += `- Blomsterbåge: ${blomsterbageVal.options[blomsterbageVal.selectedIndex].text} (${blomsterbage} kr)\n`;
 
-      if (budvases > 0)
-       text += `- Bud Vases: ${budvasesVal.options[budvasesVal.selectedIndex].text} (${budvases} kr)\n`;
+        if (budvases > 0)
+        text += `- Bud Vases: ${budvasesVal.options[budvasesVal.selectedIndex].text} (${budvases} kr)\n`;
 
-      if (vigselstorlekVal.value > 0 && vigselantal > 0)
-       text += `- Vigselgångsarrangemang: ${vigselantal} st ${vigselstorlekVal.options[vigselstorlekVal.selectedIndex].text} (${vigselgang} kr)\n`;
+        if (vigselstorlekVal.value > 0 && vigselantal > 0)
+        text += `- Vigselgångsarrangemang: ${vigselantal} st ${vigselstorlekVal.options[vigselstorlekVal.selectedIndex].text} (${vigselgang} kr)\n`;
 
-      const summaryContainer = document.getElementById("summary-container");
-      const summary = document.getElementById("summary");
-      const copyBtn = document.getElementById("copy-btn");
-
-      if (total > 0) {
-       summary.textContent = text;
-       summaryContainer.style.display = "block";
-       copyBtn.style.display = "inline-block";
-  } 
-      else {
-       summary.textContent = "Ingen blomsterkombination har valts än.";
-       summaryContainer.style.display = "block";
-       copyBtn.style.display = "none";
-  }
-}
+        const summary = document.getElementById("sammanfattning");
+        if (total > 0) {
+        summary.value = text;
+      } else {
+        summary.value = "Ingen blomsterkombination har valts än.";
+      }
+    }
 
 function copySummary() {
   const summary = document.getElementById("summary").textContent;
