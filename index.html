@@ -14,7 +14,7 @@
       max-width: 800px;
       margin: 0 auto;
       padding: 2rem;
-      line-height: 1.6;
+      line-height: 1;
     }
 
     h1, h2 {
@@ -54,6 +54,7 @@
 
      .section {
       display: flex;
+      flex-direction: row;
       align-items: flex-start;
       gap: 1rem;
       margin-bottom: 2rem;
@@ -63,8 +64,8 @@
     }
 
      .section img {
-      width: 160px;
-      height: auto;
+      width: 140px;
+      height: 160px;
       border-radius: 0px;
       object-fit: cover;
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
@@ -92,14 +93,8 @@
 
     .container {
        display: grid;
-       grid-template-columns: 1fr;
-       gap: 16px;
-    }
-
-     @media (min-width: 768px) {
-       .container {
        grid-template-columns: 1fr 1fr;
-      }
+       gap: 16px;
     }
 
      @media (max-width: 600px) {
@@ -215,7 +210,12 @@
   <section>
     <h2>Sammanfattning</h2>
     <p>Du kan markera och kopiera sammanfattningen här nere</p>
-    <textarea id="sammanfattning" style="white-space: pre-wrap; background: #f0f0f0; padding: 1rem; border-radius: 0px; margin-bottom: 1rem;"></textarea>
+    <textarea id="sammanfattning" 
+    style="width: 400px; height: 150px; resize: none; 
+    background: #fafafa; 
+    padding: 1rem 1.2rem; border-radius: 0px; 
+    border: 1.5px solid #ccc; box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    margin-bottom: 1rem;"></textarea>
   </section>
   <script>
       function calculate() {
