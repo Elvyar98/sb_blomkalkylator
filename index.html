@@ -7,7 +7,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&display=swap" rel="stylesheet">
   <style>
     body {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif, serif;
+      font-weight: 300;
       background-color: #f9f6f1;
       color: #5b9085;
       max-width: 800px;
@@ -32,7 +33,7 @@
       border: 1px solid #cbb996;
       background-color: white;
       color: #2e2e2e;
-      border-radius: 5px;
+      border-radius: 0px;
     }
 
     button:hover {
@@ -41,10 +42,11 @@
       cursor: pointer;
     }
 
-    #total {
-      font-size: 9rem;
+    .total {
+      font-size: 1.5rem;
       font-weight: 600;
       margin-top: 1rem;
+      margin-bottom: 4rem;
       color: #bfa980;
     }
 
@@ -61,7 +63,7 @@
      .section img {
       width: 160px;
       height: auto;
-      border-radius: 10px;
+      border-radius: 0px;
       object-fit: cover;
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
@@ -80,11 +82,23 @@
      .flower-info select {
        padding: 0.4rem;
        font-size: 1rem;
-       border-radius: 6px;
+       border-radius: 0px;
        border: 1px solid #ccc;
        width: 100%;
        max-width: 300px;
     } 
+
+    .container {
+       display: grid;
+       grid-template-columns: 1fr;
+       gap: 16px;
+    }
+
+     @media (min-width: 768px) {
+       .container {
+       grid-template-columns: 1fr 1fr;
+      }
+    }
 
      @media (max-width: 600px) {
       .section {
@@ -96,17 +110,16 @@
       width: 80px;
       height: 80px;
       object-fit: cover;
-      border-radius: 8px;
+      border-radius: 0px;
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
       margin-right: 1rem;
-}
+    }
 
 
 }
   </style>
 </head>
 <body>
-  <h1>Bröllop Blomkalkylator</h1>
 
   <form id="calculatorForm">
     <div class="section">
@@ -132,6 +145,8 @@
         <option value="700">Mellan (700 kr)</option>
         <option value="900">Stor (900 kr)</option>
       </select>
+      <label for="tarnbukettAntal">Antal</label>
+      <input type="number" id="tarnbukettAntal" value="0" min="0" step="1"/>
      </div>
     </div>
 
@@ -195,38 +210,92 @@
     <div class="total" id="totalpris">Totalt: 0 kr</div>
   </form>
 
+  <h2>Sammanfattning</h2>
+  <textarea id="sammanfattning" rows="10" style="width: 100%; font-family: inherit;"></textarea>
+  <button onclick="kopieraText()">Kopiera texten</button>
+
   <script>
-    function beraknaTotal() {
-      const brudbukett = parseInt(document.getElementById("brudbukett").value) || 0;
-      const tarnbukett = parseInt(document.getElementById("tarnbukett").value) || 0;
-      const boutonniereCount = parseInt(document.getElementById("boutonniere").value) || 0;
-      const boutonniere = boutonniereCount >= 0 ? boutonniereCount * 200 : 0;
-      const bordsstorlek = parseInt(document.getElementById("bordsstorlek").value) || 0;
-      const bordsantalCount = parseInt(document.getElementById("bordsantal").value) || 0;
-      const bordsantal = bordsantalCount >= 0 ? bordsantalCount : 0;
-      const blomsterbage = parseInt(document.getElementById("blomsterbage").value) || 0;
-      const budvases = parseInt(document.getElementById("budvases").value) || 0;
-      const vigselstorlek = parseInt(document.getElementById("vigselstorlek").value) || 0;
-      const vigselantalCount = parseInt(document.getElementById("vigselantal").value) || 0;
-      const vigselantal = vigselantalCount >= 0 ? vigselantalCount : 0;
+    function calculate() {
+      const brudbukettVal = document.getElementById("brudbukett");
+      const tarnbukettVal = document.getElementById("tarnbukett");
+      const tarnbukettAntal = parseInt(document.getElementById("tarnbukett-antal").value) || 0;
+      const boutonniereAntal = parseInt(document.getElementById("boutonniere-antal").value) || 0;
+      const bordsstorlekVal = document.getElementById("bordsarrangemang");
+      const bordsantal = parseInt(document.getElementById("bordsarrangemang-antal").value) || 0;
+      const blomsterbageVal = document.getElementById("blomsterbage");
+      const budvasesVal = document.getElementById("budvases");
+      const vigselstorlekVal = document.getElementById("vigselgang");
+      const vigselantal = parseInt(document.getElementById("vigselgang-antal").value) || 0;
 
-      const total = brudbukett +
-                    tarnbukett +
-                    boutonniere +
-                    (bordsstorlek * bordsantal) +
-                    blomsterbage +
-                    budvases +
-                    (vigselstorlek * vigselantal);
+      const brudbukett = parseInt(brudbukettVal.value) || 0;
+      const tarnbukett = (parseInt(tarnbukettVal.value) || 0) * tarnbukettAntal;
+      const boutonniere = 200 * boutonniereAntal;
+      const bordsarrangemang = (parseInt(bordsstorlekVal.value) || 0) * bordsantal;
+      const blomsterbage = parseInt(blomsterbageVal.value) || 0;
+      const budvases = parseInt(budvasesVal.value) || 0;
+      const vigselgang = (parseInt(vigselstorlekVal.value) || 0) * vigselantal;
 
-      document.getElementById("totalpris").textContent = `Totalt: ${total.toLocaleString()} kr`;
+      const total = brudbukett + tarnbukett + boutonniere + bordsarrangemang + blomsterbage + budvases + vigselgang;
+
+      document.getElementById("total").textContent = total;
+
+      let text = "";
+
+      if (brudbukett > 0)
+       text += `- Brudbukett: ${brudbukettVal.options[brudbukettVal.selectedIndex].text} (${brudbukett} kr)\n`;
+
+      if (tarnbukett > 0) {
+        const tarnbukettText = tarnbukettVal.options[tarnbukettVal.selectedIndex].text;
+        text += `- Tärnbuketter: ${tarnbukettAntal} st ${tarnbukettText} (${tarnbukett} kr)\n`;}
+
+      if (boutonniereAntal > 0)
+        text += `- Boutonnieres: ${boutonniereAntal} st (${boutonniere} kr)\n`;
+
+      if (bordsstorlekVal.value > 0 && bordsantal > 0)
+        text += `- Bordsarrangemang: ${bordsantal} st ${bordsstorlekVal.options[bordsstorlekVal.selectedIndex].text} (${bordsarrangemang} kr)\n`;
+
+      if (blomsterbage > 0)
+       text += `- Blomsterbåge: ${blomsterbageVal.options[blomsterbageVal.selectedIndex].text} (${blomsterbage} kr)\n`;
+
+      if (budvases > 0)
+       text += `- Bud Vases: ${budvasesVal.options[budvasesVal.selectedIndex].text} (${budvases} kr)\n`;
+
+      if (vigselstorlekVal.value > 0 && vigselantal > 0)
+       text += `- Vigselgångsarrangemang: ${vigselantal} st ${vigselstorlekVal.options[vigselstorlekVal.selectedIndex].text} (${vigselgang} kr)\n`;
+
+      const summaryContainer = document.getElementById("summary-container");
+      const summary = document.getElementById("summary");
+      const copyBtn = document.getElementById("copy-btn");
+
+      if (total > 0) {
+       summary.textContent = text;
+       summaryContainer.style.display = "block";
+       copyBtn.style.display = "inline-block";
+  } 
+      else {
+       summary.textContent = "Ingen blomsterkombination har valts än.";
+       summaryContainer.style.display = "block";
+       copyBtn.style.display = "none";
+  }
 }
-    document.querySelectorAll("#calculatorForm select, #calculatorForm input").forEach(el => {
-  el.addEventListener('input', beraknaTotal);
+
+function copySummary() {
+  const summary = document.getElementById("summary").textContent;
+  navigator.clipboard.writeText(summary).then(() => {
+    alert("Sammanfattningen är kopierad!");
+  }).catch((err) => {
+    console.error("Kunde inte kopiera texten:", err);
+  });
+}
+
+document.querySelectorAll("select, input").forEach((el) => {
+  el.addEventListener("change", calculate);
 });
 
-    window.addEventListener('DOMContentLoaded', beraknaTotal);
-  </script>
+document.getElementById("copy-btn").addEventListener("click", copySummary);
 
+window.onload = calculate;
+</script>
 </body>
 </html>
 
