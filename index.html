@@ -210,10 +210,11 @@
     <div class="total" id="totalpris">Totalt: 0 kr</div>
   </form>
 
-  <h2>Sammanfattning</h2>
-  <textarea id="sammanfattning" rows="10" style="width: 100%; font-family: inherit;"></textarea>
-  <button onclick="kopieraText()">Kopiera texten</button>
-
+  <section>
+    <h2>Sammanfattning</h2>
+    <p>Du kan markera och kopiera sammanfattningen här nere</p>
+    <textarea id="sammanfattning" style="white-space: pre-wrap; background: #f0f0f0; padding: 1rem; border-radius: 0px; margin-bottom: 1rem;"></textarea>
+  </section>
   <script>
       function calculate() {
         const brudbukettVal = document.getElementById("brudbukett");
@@ -272,20 +273,9 @@
       }
     }
 
-function copySummary() {
-  const summary = document.getElementById("summary").textContent;
-  navigator.clipboard.writeText(summary).then(() => {
-    alert("Sammanfattningen är kopierad!");
-  }).catch((err) => {
-    console.error("Kunde inte kopiera texten:", err);
-  });
-}
-
 document.querySelectorAll("select, input").forEach((el) => {
   el.addEventListener("change", calculate);
 });
-
-document.getElementById("copy-btn").addEventListener("click", copySummary);
 
 window.onload = calculate;
 </script>
